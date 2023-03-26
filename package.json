@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "dkim-signer": "^0.2.2",
+    "nodemailer": "^6.9.1"
+  }
+}
