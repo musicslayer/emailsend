@@ -19,8 +19,8 @@ async function init() {
     let messageString = generateMessageString(mail, domainName);
 
     // Generate a DKIM signature.
-    let keySelector = secret.getSecret("dkim_key_selector");
-    let privateKey = secret.getSecret("dkim_private_key");
+    let keySelector = "[Insert DKIM Key Selector]";
+    let privateKey = "[Insert Private Key]";
     let signature = generateDKIMSignature(messageString, domainName, keySelector, privateKey);
 }
 init();
