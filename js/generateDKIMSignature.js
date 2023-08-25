@@ -46,9 +46,8 @@ function generateDKIMSignature(email, domainName, keySelector, privateKey) {
     let signature = sign("RSA-SHA256", reducedHeaders, privateKey, "base64");
 
     // Each line can only be 76 characters long. Since spaces are inserted in the "b=" value, use 75 as the limit.
-    return foldText("DKIM-Signature: " + dkimInfo + ";", 76, ";", CRLF) +
-        CRLF + " " +
-        wrapText("b=" + signature, 75, CRLF + " ");
+    return foldText("DKIM-Signature: " + dkimInfo + ";", 76, ";", CRLF) + CRLF +
+        " " + wrapText("b=" + signature, 75, CRLF + " ");
 }
 
 function wrapText(str, lineLength, insertChar) {

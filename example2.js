@@ -12,7 +12,7 @@ async function init() {
         text: "Sample Email Text." // Can also use "html" instead of "text"
     }
 
-    // For the domain name, assume the "from" email is from the domain we wish to use.
+    // For the domain name, use the host of the "from" email address.
     let domainName = _getHost(mail.from);
 
     // Convert the mail information into a string.
