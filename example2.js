@@ -2,7 +2,6 @@
 
 const generateDKIMSignature = require("./js/generateDKIMSignature.js");
 const generateMessageString = require("./js/generateMessageString.js");
-const secret = require("./js/secret.js");
 
 async function init() {
     let mail = {
