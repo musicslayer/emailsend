@@ -1,6 +1,6 @@
 # emailsend
-A simple library for relaying or sending emails to SMTP/LMTP servers.
-
+A simple library for relaying or sending emails to SMTP/LMTP servers. This is a streamlined version of "node-sendmail".<br/><br/>
+https://github.com/guileen/node-sendmail<br/><br/>
 example.js demonstrates relaying and sending emails. Note that external modules "dkim-signer" and "nodemailer/lib/mail-composer" are used and thus must be installed:
 ```
 npm install dkim-signer
