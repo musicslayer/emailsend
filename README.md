@@ -5,18 +5,21 @@ A simple library for relaying or sending emails to SMTP/LMTP servers. This is a 
 npm install @musicslayer/emailsend
 
 ## API
-> emailsend.relayEmail(mail, options)
+> emailsend.sendEmail(mail, options)
 
-Manually relay mail to other domains. This should not require authentication.
+Send an email directly.
+- This should not require any authentication.
 - This requires port 24 (LMTP) or 25 (SMTP) to be open, something that residential ISPs do not always allow.
-- If an email is sent from a residential IP address, the email server may reject it before it even gets to the recipient.
+- If an email is sent from a residential IP address, an email server may reject it before it even gets to the intended recipients.
 
-> emailsend.sendEmail(mail, serverPort, serverHost, options)
+> emailsend.relayEmail(mail, serverPort, serverHost, options)
 
-Use another server to do the relaying. This often requires authentication, but is usually allowed by residential ISPs.
+Send the email to a relay server, who will then send it to the intended recipients.
+- This usually requires authentication.
+- This often requires authentication, but is usually allowed by residential ISPs.
+- For example, to relay the email to Gmail so that they can send it to the intended recipient, you might use serverPort = 465 and serverHost = "smtp.gmail.com".
 
-For example, to relay the email to Gmail so that they can send it to the intended recipient, you might use serverPort = 465 and serverHost = "smtp.gmail.com".
-
+## Arguments
 ### mail
 **mail** is a struct representing the entirety of an email's content. This struct will be passed to "nodemailer/lib/mail-composer" (see [here](https://nodemailer.com/extras/mailcomposer/#e-mail-message-fields) for more information).
 
