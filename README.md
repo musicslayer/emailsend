@@ -40,7 +40,7 @@ Send the email to a relay server, who will then send it to the intended recipien
 
     - **auth** is a struct whose fields are the authentication credentials. This is usually only needed when relaying an email through a third-party service such as Gmail. Only provide the credentials needed by the third-party service and leave the rest as undefined.
     
-        Fields:
+        *Fields:*
         - accessToken
         - authMethod*
         - pass
@@ -50,25 +50,25 @@ Send the email to a relay server, who will then send it to the intended recipien
     
     - **dkim** is a struct whose fields are the DKIM credentials. If you do not wish to provide any, leave this struct as undefined.
     
-        Fields:
+        *Fields:*
         - privateKey
         - keySelector
     
     - **dns** is a struct whose fields are various DNS options.
     
-        Fields:
+        *Fields:*
         - domainIPs*
         - domainNames*
         - numTries -> The number of times a DNS query will try contacting each name server before giving up (default = 1).
         - timeout -> The number of milliseconds before a DNS query will give up (default = 3000).
         
-        *These must be both undefined (recommended), or else they must be arrays containing an equal number of elements. Normally, DNS name servers (such as Cloudflare) are used to determine where to send emails to. For example, if sending an email to `dana@outlook.com`, the mail exchange for `outlook.com` must be queried. However, you may override this lookup process by manually specifying the IP for a certain domain name.
+        *These must be both undefined (recommended), or else they must be arrays containing an equal number of string elements. Normally, DNS name servers (such as Cloudflare) are used to determine where to send emails to. For example, if sending an email to `dana@outlook.com`, the mail exchange for `outlook.com` must be queried. However, you may override this lookup process by manually specifying the IP for a certain domain name.
         
-        For example: You wish to send an email to an email server running on localhost to the address `test@mydomain.com`. Specify domainNames = [] and domainIPs = [];
+        For example: You wish to test out your own email server which is currently running on localhost "127.0.0.1" (or perhaps some other IP address which is not yet registered with any DNS name service). You plan to send a test email to `test@mydomain.com`. Specify domainNames = ["mydomain.com"] and domainIPs = ["127.0.0.1"];
     
     - **email** is a struct whose fields affect the actual process of transmitting the email data.
     
-        Fields:
+        *Fields:*
         - crlfClient -> The line ending used by this software when transmitting data (default = "\r\n").
         - crlfServer -> The line ending we expect from an email server we are receiving data from (default = "\r\n").
         - isLMTP -> true if LMTP should be used and false if SMTP should be used (default = false).
@@ -76,7 +76,7 @@ Send the email to a relay server, who will then send it to the intended recipien
     
     - **logger** is a struct whose fields affect how the email sending process is logged. By default, nothing is logged.
     
-        Fields:
+        *Fields:*
         - isColor -> true if logged text should be color-coded and false otherwise (default = false).
         - logFcn -> The function called on all text that is to be logged (default = () => {}).
         
@@ -90,13 +90,13 @@ Send the email to a relay server, who will then send it to the intended recipien
     
     - **socket** is a struct whose fields affect the sockets used to transmit the emails.
     
-        Fields:
+        *Fields:*
         - encoding -> The encoding of the socket (default = "utf8").
         - timeout -> The number of milliseconds before an attempt at connecting a socket will give up (default = 3000).
     
     - **tls** is a struct whose fields are the TLS credentials. If you do not wish to provide any, leave this struct as undefined.
     
-        Fields:
+        *Fields:*
         - cert
         - key
         - strict* -> Whether the usage of TLS is required (default = false).
