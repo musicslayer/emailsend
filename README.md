@@ -4,6 +4,11 @@ A simple library for relaying or sending emails to SMTP/LMTP servers. This is a 
 ## Installation Instructions
 npm install @musicslayer/emailsend
 
+## Example Usage
+example.js demonstrates relaying and sending emails. Note that external modules "dkim-signer" and "nodemailer/lib/mail-composer" are used.
+
+example2.js demonstrates stand-alone functionality to generate simple message strings and DKIM signatures without "dkim-signer" or "nodemailer/lib/mail-composer".
+
 ## API
 > emailsend.sendEmail(mail, options)
 
@@ -97,10 +102,5 @@ Send the email to a relay server, who will then send it to the intended recipien
         - strict* -> Whether the usage of TLS is required (default = false).
         
         *When connecting to a host, the software will always make the initial connection with an insecure net socket, and then unconditionally attempt to upgrade it to a secure TLS socket regardless of whether credentials are provided or the host we are connecting to supports TLS. If this upgrade fails:
-        - If **strict** is true, communication will be immediately severed.
-        - If **strict** is false, communication will continue using an insecure net socket if possible.
-
-## Example Usage
-example.js demonstrates relaying and sending emails. Note that external modules "dkim-signer" and "nodemailer/lib/mail-composer" are used.
-
-example2.js demonstrates stand-alone functionality to generate message strings and DKIM signatures without "dkim-signer" or "nodemailer/lib/mail-composer".
+        - If strict is true, communication will be immediately severed.
+        - If strict is false, communication will continue using an insecure net socket if possible.
