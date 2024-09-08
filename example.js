@@ -1,6 +1,6 @@
 // Example usage of "emailsend"
 
-const emailsend = require("./js/emailsend.js");
+const {emailsend} = require("@musicslayer/emailsend");
 
 const mail = {
     from: "[Insert Address]",
@@ -23,7 +23,7 @@ const options = {
 }
 
 // Manually relay mail to other domains. This should not require authentication.
-// - This requires port 25 to be open, something that residential ISPs do not always allow.
+// - This requires port 24 (LMTP) or 25 (SMTP) to be open, something that residential ISPs do not always allow.
 // - If an email is sent from a residential IP address, the email server may reject it before it even gets to the recipient.
 let results = (async () => await emailsend.relayEmail(mail, options))();
 

@@ -1,7 +1,6 @@
 // Example usage of "generateDKIMSignature" and "generateMessageString".
 
-const generateDKIMSignature = require("./js/generateDKIMSignature.js");
-const generateMessageString = require("./js/generateMessageString.js");
+const {generateDKIMSignature, generateMessageString} = require("@musicslayer/emailsend");
 
 async function init() {
     let mail = {
