@@ -32,6 +32,8 @@ const mail = {
 
 ### options
 **options** is a struct that allows you to configure how an email is send. Each field and its possible values are enumerated below. If a field is not needed or you want the default value, leave it as undefined.
+<details>
+<summary>Fields:</summary>
 
 #### auth
 **auth** is a struct whose fields are the authentication credentials. This is usually only needed when relaying an email through a third-party service such as Gmail. Only provide the credentials needed by the third-party service and leave the rest as undefined.
@@ -107,6 +109,9 @@ Fields:
 - If **strict** is true, communication will be immediately severed.
 - If **strict** is false, communication will continue using an insecure net socket if possible.
 
+</details>
+
 ## Example Usage
 example.js demonstrates relaying and sending emails. Note that external modules "dkim-signer" and "nodemailer/lib/mail-composer" are used.
+
 example2.js demonstrates stand-alone functionality to generate message strings and DKIM signatures without "dkim-signer" or "nodemailer/lib/mail-composer".
