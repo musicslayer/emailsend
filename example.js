@@ -22,10 +22,10 @@ const options = {
     },
 }
 
-// Manually relay mail to other domains. This should not require authentication.
+// Send an email directly.
 // - This requires port 24 (LMTP) or 25 (SMTP) to be open, something that residential ISPs do not always allow.
-// - If an email is sent from a residential IP address, the email server may reject it before it even gets to the recipient.
-let results = (async () => await emailsend.relayEmail(mail, options))();
+// - If an email is sent from a residential IP address, an email server may reject it before it even gets to the intended recipients.
+let results = (async () => await emailsend.sendEmail(mail, options))();
 
-// Use another server to do the relaying. This often requires authentication.
-let results2 = (async () => await emailsend.sendEmail(mail, 465, "smtp.gmail.com", options))();
+// Send the email to a relay server, who will then send it to the intended recipients.
+let results2 = (async () => await emailsend.relayEmail(mail, 465, "smtp.gmail.com", options))();

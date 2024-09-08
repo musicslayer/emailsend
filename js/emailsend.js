@@ -8,8 +8,8 @@ const Timer = require("./Timer.js");
 const dnsUtil = require("./dns_util.js");
 const emailUtil = require("./email_util.js");
 
-const RELAY_LMTP_PORT = 24;
-const RELAY_SMTP_PORT = 25;
+const LMTP_PORT = 24;
+const SMTP_PORT = 25;
 
 /*
 *   Options:
@@ -43,15 +43,15 @@ const RELAY_SMTP_PORT = 25;
 *
 */
 
-async function relayEmail(mail, options) {
+async function relayEmail(mail, serverPort, serverHost, options) {
     isRelay = true;
-    serverPort = options?.email?.isLMTP ? RELAY_LMTP_PORT : RELAY_SMTP_PORT;
-    serverHost = undefined;
     return await transmitEmail(isRelay, mail, serverPort, serverHost, options);
 }
 
-async function sendEmail(mail, serverPort, serverHost, options) {
+async function sendEmail(mail, options) {
     isRelay = false;
+    serverPort = options?.email?.isLMTP ? LMTP_PORT : SMTP_PORT;
+    serverHost = undefined;
     return await transmitEmail(isRelay, mail, serverPort, serverHost, options);
 }
 
@@ -80,17 +80,17 @@ async function _transmitEmail(isRelay, mail, serverPort, serverHost, options) {
     let groups = {};
 
     if(isRelay) {
+        // Send all the emails at once to the relay server.
+        let domain = "email";
+        groups[domain] = emailUtil.getRecipients(mail);
+        promiseArray.push(processDomain(domain));
+    }
+    else {
         // Send all the emails grouped by domain.
         groups = emailUtil.createDomainGroup(mail);
         for(let domain in groups) {
             promiseArray.push(processDomain(domain));
         }
-    }
-    else {
-        // Send all the emails at once.
-        let domain = "email";
-        groups[domain] = emailUtil.getRecipients(mail);
-        promiseArray.push(processDomain(domain));
     }
 
     await Promise.all(promiseArray);
@@ -124,7 +124,11 @@ async function sendToServer(isRelay, serverPort, serverHost, domain, options, sr
 
 async function connectMX(isRelay, serverPort, serverHost, domain, options, logger) {
     if(isRelay) {
-        // We are relaying the emails ourselves so we need to search the MX records to find a host to connect to.
+        // Connect to the relay server.
+        return await Socket.createSocket(serverPort, serverHost, logger, options?.socket);
+    }
+    else {
+        // We are sending the emails ourselves so we need to search the MX records to find a host to connect to.
         logger.logMX("MX DNS Resolving...");
 
         let serverHostArray = await dnsUtil.resolveMX(domain, options?.dns);
@@ -136,13 +140,7 @@ async function connectMX(isRelay, serverPort, serverHost, domain, options, logge
 
         return await Socket.createSocketFromHostArray(serverPort, serverHostArray, logger, options?.socket);
     }
-    else {
-        // Always use the host provided regardless of the domain we are actually emailing to.
-        // Useful for when we are asking another server to do the email relaying for us.
-        return await Socket.createSocket(serverPort, serverHost, logger, options?.socket);
-    }
 }
 
 module.exports.relayEmail = relayEmail;
 module.exports.sendEmail = sendEmail;
-module.exports.transmitEmail = transmitEmail;
