@@ -1,8 +1,12 @@
 # emailsend
-A simple library for relaying or sending emails to SMTP/LMTP servers. This is a rewriting of "node-sendmail" (https://github.com/guileen/node-sendmail).
+A simple library for relaying or sending emails to SMTP/LMTP servers.
+
+This is a rewriting of "node-sendmail" (https://github.com/guileen/node-sendmail).
 
 ## Installation Instructions
-npm install @musicslayer/emailsend
+Package available on [NPM](https://www.npmjs.com/package/@musicslayer/emailsend).
+
+`> npm install @musicslayer/emailsend`
 
 ## Example Usage
 example.js demonstrates relaying and sending emails. Note that external modules "dkim-signer" and "nodemailer/lib/mail-composer" are used.
