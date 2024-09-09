@@ -69,9 +69,11 @@ async function resolveMX(domain, dnsOptions) {
         throw(new Error("<" + domain + "> Can not resolve MX"));
     }
 
-    // Before returning we sort by priority and extract hosts into an array.
+    // Before returning we sort by priority and extract information into an array.
     data.sort(function(a, b) { return a.priority - b.priority });
-    return data.map((x) => { return x.exchange; });
+    exchanges = data.map((x) => { return x.exchange; });
+    priorities = data.map((x) => { return x.priority; });
+    return [exchanges, priorities];
 
     async function resolveMXWithServer(i) {
         const resolver = new dns.promises.Resolver({

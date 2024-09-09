@@ -131,11 +131,11 @@ async function connectMX(isRelay, serverPort, serverHost, domain, options, logge
         // We are sending the emails ourselves so we need to search the MX records to find a host to connect to.
         logger.logMX("MX DNS Resolving...");
 
-        let serverHostArray = await dnsUtil.resolveMX(domain, options?.dns);
+        let [serverHostArray, priorities] = await dnsUtil.resolveMX(domain, options?.dns);
 
         logger.logMX("MX DNS Resolved:");
-        for(let smptHost of serverHostArray) {
-            logger.logMX("    " + smptHost);
+        for(let i = 0; i < serverHostArray.length; i++) {
+            logger.logMX("    " + serverHostArray[i] + " (" + priorities[i] + ")");
         }
 
         return await Socket.createSocketFromHostArray(serverPort, serverHostArray, logger, options?.socket);
