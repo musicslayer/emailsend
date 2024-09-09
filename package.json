@@ -5,7 +5,7 @@
   },
   "name": "@musicslayer/emailsend",
   "description": "A simple library for relaying or sending emails to SMTP/LMTP servers. This is a streamlined version of \"node-sendmail\".<br/><br/>\r https://github.com/guileen/node-sendmail<br/><br/>\r example.js demonstrates relaying and sending emails. Note that external modules \"dkim-signer\" and \"nodemailer/lib/mail-composer\" are used and thus must be installed:\r ```\r npm install dkim-signer\r npm install nodemailer\r ```\r example2.js demonstrates stand-alone functionality to generate message strings and DKIM signatures without \"dkim-signer\" or \"nodemailer/lib/mail-composer\".",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
